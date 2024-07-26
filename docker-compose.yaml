@@ -1,0 +1,27 @@
+networks:
+  simple-rag:
+    name: simple-rag
+services:
+  simple-rag-server:
+    image: simple-rag-server
+    container_name: simple-rag-server
+    init: true
+    restart: always
+    networks:
+      - simple-rag
+    volumes:
+      - ./server/src:/app
+      - ./server/data:/app/data
+    ports:
+      - 10999:10999
+  simple-rag-client:
+    image: simple-rag-client
+    container_name: simple-rag-client
+    init: true
+    restart: always
+    networks:
+      - simple-rag
+    volumes:
+      - ./client/src:/app
+    ports:
+      - 11000:8501
