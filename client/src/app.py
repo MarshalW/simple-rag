@@ -1,6 +1,9 @@
 import streamlit as st
 import requests
 from typing import Generator
+import os
+
+api_base_url = os.environ.get('API_BASE_URL', 'http://simple-rag-server:10999')
 
 st.title("北京旅游景点查询")
 
@@ -31,7 +34,7 @@ if len(st.session_state.messages) > 0:
                 "accept": "text/event-stream"
             }
             response = requests.post(
-                url="http://simple-rag-server:10999/query",
+                url=f"{api_base_url}/query",
                 json={"query": prompt},
                 headers=headers,
                 stream=True,

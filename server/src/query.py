@@ -7,13 +7,15 @@ from llama_index.core import load_index_from_storage
 from llama_index.core import StorageContext
 import os
 
-llm_model_name = "qwen2"
-temperature = 0.1
-llm_api_base = "http://monkey:11434/v1"
+llm_base_url = os.environ.get('LLM_BASE_URL', 'http://ollama-service:11434')
 
-embedding_model_name = "quentinz/bge-large-zh-v1.5"
+llm_model_name = os.environ.get('LLM_MODEL_NAME', "qwen2") 
+temperature = 0.1
+llm_api_base = f"{llm_base_url}/v1"
+
+embedding_model_name = os.environ.get('EMBEDDING_MODEL_NAME', "quentinz/bge-large-zh-v1.5") 
 embedding_dimension = 1024
-embedding_api_base = "http://monkey:11434"
+embedding_api_base = llm_base_url 
 
 Settings.chunk_size = 128
 Settings.chunk_overlap = 20

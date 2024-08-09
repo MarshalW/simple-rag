@@ -20,4 +20,8 @@ RUN pip install \
     sseclient-py
 
 WORKDIR /app
+
+# 复制项目文件到容器中
+COPY ./src /app
+
 CMD [ "streamlit","run", "--client.showSidebarNavigation=False", "./app.py" ]

@@ -9,11 +9,17 @@ services:
     restart: always
     networks:
       - simple-rag
+    # environment:
+    #   - LLM_BASE_URL=http://192.168.0.73:11434
+    #   # - LLM_MODEL_NAME=qwen2:1.5b
+    #   - EMBEDDING_MODEL_NAME=quentinz/bge-large-zh-v1.5
     volumes:
       - ./server/src:/app
       - ./server/data:/app/data
     ports:
       - 10999:10999
+    extra_hosts:
+      - ollama-service:192.168.0.73 #monkey
   simple-rag-client:
     image: simple-rag-client
     container_name: simple-rag-client
@@ -25,3 +31,5 @@ services:
       - ./client/src:/app
     ports:
       - 11000:8501
+    environment:
+      - API_BASE_URL=http://192.168.0.73:10999

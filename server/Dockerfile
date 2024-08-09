@@ -35,6 +35,7 @@ WORKDIR /app
 
 # 复制项目文件到容器中
 COPY ./src /app
+COPY ./data /app/data
 
 # 为容器指定要运行的命令
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "10999"]
